@@ -6,7 +6,7 @@ var reset = function () {
     for (i = 0; i < allEnemiesLentgh; i++) {
         allEnemies[i].x = allEnemies[i].initialX;
         allEnemies[i].y = allEnemies[i].initialY;
-        allEnemies[i].speed = Math.random() * 150 + 100;
+        allEnemies[i].speed = Math.random() * 150 + 100;            // Setting the Enemy speed
     }
 
     player.x = player.initialX;
@@ -23,7 +23,6 @@ var Enemy = function(x, y) {
     this.sprite = 'images/enemy-bug.png';
     this.x = x;                                                     // Setting the Enemy initial location
     this.y = y;               
-    this.sped = speed;                                              // Setting the Enemy speed
     this.initialX = x;
     this.initialY = y;
 };
