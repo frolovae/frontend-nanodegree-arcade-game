@@ -1,20 +1,8 @@
-var cellX = 101;
-var cellY = 83;
-
-var reset = function () {
-    var allEnemiesLentgh = allEnemies.length;
-    for (i = 0; i < allEnemiesLentgh; i++) {
-        allEnemies[i].x = allEnemies[i].initialX;
-        allEnemies[i].y = allEnemies[i].initialY;
-        allEnemies[i].speed = Math.random() * 150 + 100;            // Setting the Enemy speed
-    }
-
-    player.x = player.initialX;
-    player.y = player.initialY;
-}
+var CELLX = 101;
+var CELLY = 83;
 
 // Enemies our player must avoid 
-var Enemy = function(x, y) {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -25,6 +13,7 @@ var Enemy = function(x, y) {
     this.y = y;               
     this.initialX = x;
     this.initialY = y;
+    this.speed = speed;                                                     // Settng the Enemy speed
 };
 
 // Update the enemy's position, required method for game
@@ -42,8 +31,7 @@ Enemy.prototype.update = function(dt) {
     var d = player.y + 130;
     var e = (a - c) * (a - c) + (b - d)*(b - d);
     var hypotenuse = Math.sqrt(e);
-    if (hypotenuse < 47) {reset();};                                    // Handles collision with the Player (you need to implement)
-
+    if (hypotenuse < 47) {player.reset();}                                    // Handles collision with the Player (you need to implement)
 };
 
 // Draw the enemy on the screen, required method for game
@@ -63,8 +51,8 @@ var Player = function(x, y) {
     this.initialY = y;
 };
 
-Player.prototype.update = function(dt) {                                // can be similar to the one for the Enemy
-    if (this.y < 10) {reset();}
+Player.prototype.update = function() {                                  // can be similar to the one for the Enemy
+    if (this.y < 10) {this.reset();}
 };
 
 Player.prototype.render = function() {
@@ -74,23 +62,35 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(key) {
     switch (key) {
         case 'left':
-            this.x = this.x - 1*cellX;
+            this.x = this.x - 1*CELLX;
             break;
         case 'right':
-            this.x = this.x + 1*cellX;
+            this.x = this.x + 1*CELLX;
             break;
         case 'up':
-            this.y = this.y - 1*cellY;
+            this.y = this.y - 1*CELLY;
             break;
         case 'down':
-            this.y = this.y + 1*cellY;
+            this.y = this.y + 1*CELLY;
             break;
     }
+    if (this.x < 0) {this.x = 0;}
+    if (this.x > 400) {this.x = 400;}
+    if (this.y < 0) {this.y = 0;}
+    if (this.y > 400) {this.y = 400;}
+};
 
-    if (this.x < 0) {this.x = 0}
-    if (this.x > 400) {this.x = 400}
-    if (this.y < 0) {this.y = 0}
-    if (this.y > 400) {this.y = 400}
+Player.prototype.reset = function() {
+    var allEnemiesLentgh = allEnemies.length;
+    var i = i;
+    for (i = 0; i < allEnemiesLentgh; i++) {
+        allEnemies[i].x = allEnemies[i].initialX;
+        allEnemies[i].y = allEnemies[i].initialY;
+        allEnemies[i].speed = Math.random() * 150 + 100;            // Setting the Enemy speed
+    }
+
+    this.x = this.initialX;
+    this.y = this.initialY;
 };
 
 // Now instantiate your objects.
@@ -99,10 +99,12 @@ Player.prototype.handleInput = function(key) {
 
 var player = new Player(200, 400);
 var allEnemies = [];
-allEnemies[0] = new Enemy(-120, 60);
-allEnemies[1] = new Enemy(-100, 143);
-allEnemies[2] = new Enemy(-110, 226);
-reset();
+allEnemies[0] = new Enemy(-120, 60, 150);
+allEnemies[1] = new Enemy(-100, 143, 250);
+allEnemies[2] = new Enemy(-110, 226, 200);
+allEnemies[3] = new Enemy(-320, 60, 150);
+allEnemies[4] = new Enemy(-300, 143, 250);
+allEnemies[5] = new Enemy(-310, 226, 200);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
