@@ -36,7 +36,7 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);              // ctx and Resources defined in engine.js
 };
 
 // Now write your own player class
@@ -56,7 +56,7 @@ Player.prototype.update = function() {                                  // can b
 };
 
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);          // use the code from the render method for the Enemy
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);          // use the code from the render method for the Enemy / ctx and Resources defined in engine.js
 };
 
 Player.prototype.handleInput = function(key) {
